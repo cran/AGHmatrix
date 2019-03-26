@@ -26,7 +26,7 @@
 #' data(ped.mrode)
 #' missingdata(ped.mrode)
 #'
-#' @author Rodrigo R Amadeu, \email{rramadeu@@ufl.edu}
+#' @author Rodrigo R Amadeu, \email{rramadeu@@gmail.com}
 #'
 #' @export
 

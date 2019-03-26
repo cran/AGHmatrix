@@ -4,15 +4,17 @@
 \alias{formatmatrix}
 \title{Transform a matrix in 3 columns}
 \usage{
-formatmatrix(data = NULL, file = NULL, return = TRUE, round.by = 12,
-  exclude.0 = TRUE)
+formatmatrix(data = NULL, save = TRUE, return = FALSE,
+  name = deparse(substitute(data)), round.by = 12, exclude.0 = TRUE)
 }
 \arguments{
 \item{data}{matrix (nxn).}
 
-\item{file}{name of the file to be saved. Default=NULL.}
+\item{save}{if TRUE save the output in a file. Default=TRUE.}
 
 \item{return}{if TRUE return the output in a object. Default=FALSE.}
+
+\item{name}{name of the csv file to be saved. Default=data name.}
 
 \item{round.by}{select the number of digits after 0 you want in your data. Default = 12}
 
@@ -27,7 +29,7 @@ Given any square matrix transform it in a 3 columns way (row, column, value) mai
 \examples{
 #Example with random matrix
 data<-matrix(c(1,0.1,0,0.1,1,0,0,0,1.1),3)
-formatmatrix(data=data,return=TRUE,exclude.0=TRUE)
+formatmatrix(data=data,save=FALSE,return=TRUE,exclude.0=TRUE)
 
 #Example with pedigree matrix
 #Reading the example data
@@ -37,11 +39,11 @@ Amrode<-Amatrix(ped.mrode)
 #Inverting the Matrix
 Amrode.inv<-solve(Amrode)
 #Making the 3 columns format
-Amrode.inv.ASREML<-formatmatrix(Amrode,return=TRUE,exclude.0=TRUE)
+Amrode.inv.ASREML<-formatmatrix(Amrode,save=FALSE,return=TRUE,exclude.0=TRUE)
 #Printing it
 Amrode.inv.ASREML 
 
 }
 \author{
-Rodrigo R Amadeu, \email{rramadeu@ufl.edu}
+Rodrigo R Amadeu, \email{rramadeu@gmail.com}
 }

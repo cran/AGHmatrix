@@ -19,8 +19,7 @@
 #' @param data name of the pedigree data frame. Default=NULL.
 #' @param unk the code of the data missing. Default=0.
 #' @param n.max max number of iteractions to get the chronological order. Default = 50
-#' @param file name of the file to be saved. Default=NULL.
-#' @param log if TRUE print the interaction number to sort the individuals. Default = FALSE
+#' @param save if TRUE, save the genealogy in a .txt file
 #'
 #' @return list with parental 1, parental 2, and real names of the individuals (key) also saves a txt file with the new chronological pedigree.
 #'
@@ -28,15 +27,14 @@
 #' data(ped.mrode)
 #' datatreat(ped.mrode)
 #'
-#' @author Rodrigo R Amadeu, \email{rramadeu@@ufl.edu}
+#' @author Rodrigo R Amadeu, \email{rramadeu@@gmail.com}
 #'
 #' @export
 
 datatreat <- function(data=NULL,
                        n.max=50,
                        unk=0,
-                       file=NULL,
-                       log=FALSE
+                       save=FALSE
                        ){
     indicator <- k <-  0
     if(is.null(data))
@@ -82,7 +80,7 @@ datatreat <- function(data=NULL,
               error <- c(error,j)
 
                                         #Print the step point
-      if( log ){
+      if( save ){
       cat( paste("iteraction #",i,parent.ind,"\n",sep=""))
       cat( paste(error,"\n"))
   }
@@ -112,8 +110,9 @@ datatreat <- function(data=NULL,
 
       if ( i != 1 && k == 0 && lastk == 0 ){
           cat("Your data was chronologically organized with success. \n")
-          if(!is.null(file)){
-            write.table(new.data,  file=file, quote=FALSE, row.names=FALSE, col.names=FALSE)
+          if(save){
+            cat(paste("orgnew.txt",sep=""))
+            write.table(new.data,  file=paste("orgped.txt",sep=""), quote=FALSE, row.names=FALSE, col.names=FALSE)
         }
           return(pedigree)
       }

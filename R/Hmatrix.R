@@ -37,7 +37,7 @@
 #' Gmat <- Gmatrix(markers)
 #' Hmatrix(Amat,Gmat,markers)
 #'
-#' @author Rodrigo R Amadeu, \email{rramadeu@@ufl.edu}
+#' @author Rodrigo R Amadeu, \email{rramadeu@@gmail.com}
 #' 
 #' @references \emph{Munoz, P. R., Resende, M. F. R., Gezan, S. A., Resende, M. D. V., de los Campos, G., Kirst, M., Huber, D., Peter, G. F. (2014). Unraveling additive from nonadditive effects using genomic relationship matrices. Genetics, 198.4: 1759-1768.}
 #'
@@ -101,8 +101,8 @@ Hmatrix <- function(A=NULL,
     beta <- 1 - (c+(1/(markersmatrix[Gnhat,Gnhat]))/varA)
     H <- beta*(G-A)+A ######
     Aorig[Anhat,Anhat] = H
-    cat("\n",length(missingAmatrix),"Individuals in A but not in G:",missingAmatrix,"\n")
-    cat("\n",length(missingGmatrix),"Individuals in G but not in A:",missingGmatrix,"\n")
+    cat("\n",length(missingGmatrix),"Individuals in A but not in G:",missingGmatrix,"\n")
+    cat("\n",length(missingAmatrix),"Individuals in G but not in A:",missingAmatrix,"\n")
     Time = as.matrix(proc.time()-Time)
     cat("\n","Completed! Time =", Time[3]/60," minutes \n")
     cat("\n","Returning H = A matrix corrected by G... \n")

@@ -21,18 +21,20 @@
 #' @param SNPmatrix matrix (n x m), where n is is individual names and m is marker names (coded inside the matrix as 0, 1, 2, ..., ploidy, and, missingValue). 
 #' @param method "Yang" or "VanRaden" for marker-based additive relationship matrix. "Su" or "Vitezica" for marker-based dominance relationship matrix. "Slater" for full-autopolyploid model including non-additive effects. "Endelman" for autotetraploid dominant (digentic) relationship matrix. "MarkersMatrix" for a matrix with the amount of shared markers between individuals (3). Default is "VanRaden", for autopolyploids will be computed a scaled product (similar to Covarrubias-Pazaran, 2006).
 #' @param missingValue missing value in data. Default=-9.
-#' @param thresh.missing threshold on missing data,  SNPs below of this frequency value will be maintained. Default = 
+#' @param thresh.missing threshold on missing data, SNPs below of this frequency value will be maintained, if equal to 1, no threshold and imputation is considered. Default = 1.
 #' @param maf max of missing data accepted to each marker. Default=0.05.
 #' @param verify.posdef verify if the resulting matrix is positive-definite. Default=FALSE.
 #' @param ploidy data ploidy (an even number between 2 and 20). Default=2.
 #' @param pseudo.diploid if TRUE, uses pseudodiploid parametrization of Slater (2016).
 #' @param ratio if TRUE, molecular data are considered ratios and its computed the scaled product of the matrix (as in "VanRaden" method).
-#' @param impute.method if TRUE, missing data imputed by the mode
-#' 
+#' @param impute.method "mean" to impute the missing data by the mean or "mode" to impute the missing data my the mode. Default = "mean".
+#' @param integer if FALSE, not check for integer numbers. Default=TRUE.
+#' @param ratio.check if TRUE, run snp.check with ratio data.
+#'
 #' @return Matrix with the marker-bases relationships between the individuals
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' ## Diploid Example
 #' data(snp.pine)
 #' #Verifying if data is coded as 0,1,2 and missing value.
@@ -56,7 +58,7 @@
 #' Gmatrix.Pseudodiploid <- Gmatrix(markersdata, method="VanRaden", ploidy=4, pseudo.diploid=TRUE) 
 #' }
 #' 
-#' @author Rodrigo R Amadeu \email{rramadeu@@ufl.edu}, Marcio Resende Jr, Letícia AC Lara, and Ivone Oliveira
+#' @author Rodrigo R Amadeu \email{rramadeu@@gmail.com}, Marcio Resende Jr, Letícia AC Lara, and Ivone Oliveira
 #' 
 #' @references \emph{Covarrubias-Pazaran G., 2016. Genome assisted prediction of quantitative traits using the R package sommer. PLoS ONE 11(6):1-15.}
 #' @references \emph{Slater, A.T., et al., 2016. Improving genetic gain with genomic selection in autotetraploid potato. The Plant Genome 9(3), pp.1-15.}
@@ -69,10 +71,10 @@
 #' @export
 
 Gmatrix <- function (SNPmatrix = NULL, method = "VanRaden", 
-                     missingValue = -9, maf = 0, thresh.missing = 0.9,
+                     missingValue = -9, maf = 0, thresh.missing = 1,
                      verify.posdef = FALSE, ploidy=2,
-                     pseudo.diploid = FALSE,
-                     ratio = FALSE, impute.method = FALSE){
+                     pseudo.diploid = FALSE, integer=TRUE,
+                     ratio = FALSE, impute.method = "mean", ratio.check=TRUE){
   Time = proc.time()
   
   if(ratio){ #This allows to enter in the scaled crossprod condition
@@ -85,7 +87,7 @@ Gmatrix <- function (SNPmatrix = NULL, method = "VanRaden",
     SNPmatrix[m > 0] <- NA
   }
   
-  check_Gmatrix_data(SNPmatrix=SNPmatrix,method=method,ploidy=ploidy,ratio=ratio)
+  check_Gmatrix_data(SNPmatrix=SNPmatrix,method=method,ploidy=ploidy,ratio=ratio,integer=integer)
   
   NumberMarkers <- ncol(SNPmatrix)
   nindTotal <- colSums(!is.na(SNPmatrix))
@@ -95,6 +97,15 @@ Gmatrix <- function (SNPmatrix = NULL, method = "VanRaden",
   cat("\tNumber of Markers:", NumberMarkers, "\n")
   
   if(ratio==FALSE){
+    SNPmatrix <- snp.check(SNPmatrix,
+                           ploidy = ploidy, 
+                           thresh.maf = maf, 
+                           thresh.missing = thresh.missing,
+                           impute.method = impute.method)
+  }
+  
+  ## Testing ratio check function: not final!
+  if(ratio && ratio.check){
     SNPmatrix <- snp.check(SNPmatrix,
                            ploidy = ploidy, 
                            thresh.maf = maf, 
@@ -284,7 +295,7 @@ snp.check = function(M = NULL,
                      ploidy=4,
                      thresh.maf = 0.05,
                      thresh.missing = 0.9,
-                     impute.method = TRUE){
+                     impute.method = "mean"){
   # SNP missing data
   ncol.init <- ncol(M)
   
@@ -324,7 +335,7 @@ snp.check = function(M = NULL,
   cat("Monomorphic check: \n")
   if(any(mono)){
     cat("\t",sum(mono), "monomorphic SNPs \n")
-    print("\tTotal:",ncol(M) - sum(mono), "SNPs \n")
+    cat("\tTotal:",ncol(M) - sum(mono), "SNPs \n")
     idx.rm <- which(mono)
     M <- M[, -idx.rm, drop=FALSE]
   } else{
@@ -332,7 +343,14 @@ snp.check = function(M = NULL,
   }
   
   # Imputing by mode
-  if(impute.method==TRUE){
+  if(impute.method=="mean"){
+    ix <- which(is.na(M))
+    if (length(ix) > 0) {
+      M[ix] <- mean(M,na.rm = TRUE)
+    }
+  }
+  
+  if(impute.method=="mode"){
     ix <- which(is.na(M))
     if (length(ix) > 0) {
       M[ix] <- as.integer(names(which.max(table(M))))
@@ -347,7 +365,7 @@ snp.check = function(M = NULL,
 }
 
 # Internal function to check input Gmatrix arguments
-check_Gmatrix_data <- function(SNPmatrix,ploidy,method, ratio=FALSE){
+check_Gmatrix_data <- function(SNPmatrix,ploidy,method, ratio=FALSE, integer=TRUE){
   if (is.null(SNPmatrix)) {
     stop(deparse("Please define the variable SNPdata"))
   }
@@ -381,9 +399,10 @@ check_Gmatrix_data <- function(SNPmatrix,ploidy,method, ratio=FALSE){
   if( t < 0 )
     stop(deparse("Check your data, it has values under 0"))
   
-  if(prod(SNPmatrix == round(SNPmatrix),na.rm = TRUE)==0)
-    stop(deparse("Check your data, it has not integer values"))
-  }
+  if(integer)
+    if(prod(SNPmatrix == round(SNPmatrix),na.rm = TRUE)==0)
+      stop(deparse("Check your data, it has not integer values"))
+    }
 
   if(ratio){
     t <- max(SNPmatrix,na.rm = TRUE)

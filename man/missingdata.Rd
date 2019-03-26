@@ -23,5 +23,5 @@ missingdata(ped.mrode)
 
 }
 \author{
-Rodrigo R Amadeu, \email{rramadeu@ufl.edu}
+Rodrigo R Amadeu, \email{rramadeu@gmail.com}
 }

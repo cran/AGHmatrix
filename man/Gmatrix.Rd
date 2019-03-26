@@ -5,8 +5,10 @@
 \title{Construction of Relationship Matrix G}
 \usage{
 Gmatrix(SNPmatrix = NULL, method = "VanRaden", missingValue = -9,
-  maf = 0, thresh.missing = 0.9, verify.posdef = FALSE, ploidy = 2,
-  pseudo.diploid = FALSE, ratio = FALSE, impute.method = FALSE)
+  maf = 0, thresh.missing = 1, verify.posdef = FALSE, ploidy = 2,
+  pseudo.diploid = FALSE,  
+  integer = TRUE, ratio = FALSE, impute.method = "mean", 
+  ratio.check = TRUE)
 }
 \arguments{
 \item{SNPmatrix}{matrix (n x m), where n is is individual names and m is marker names (coded inside the matrix as 0, 1, 2, ..., ploidy, and, missingValue).}
@@ -17,17 +19,21 @@ Gmatrix(SNPmatrix = NULL, method = "VanRaden", missingValue = -9,
 
 \item{maf}{max of missing data accepted to each marker. Default=0.05.}
 
-\item{thresh.missing}{threshold on missing data,  SNPs below of this frequency value will be maintained. Default =}
+\item{thresh.missing}{threshold on missing data, SNPs below of this frequency value will be maintained, if equal to 1, no threshold and imputation is considered. Default = 1.}
 
 \item{verify.posdef}{verify if the resulting matrix is positive-definite. Default=FALSE.}
 
 \item{ploidy}{data ploidy (an even number between 2 and 20). Default=2.}
 
 \item{pseudo.diploid}{if TRUE, uses pseudodiploid parametrization of Slater (2016).}
+              
+\item{integer}{if FALSE, not check for integer numbers. Default=TRUE.}
 
 \item{ratio}{if TRUE, molecular data are considered ratios and its computed the scaled product of the matrix (as in "VanRaden" method).}
 
-\item{impute.method}{if TRUE, missing data imputed by the mode}
+\item{impute.method}{"mean" to impute the missing data by the mean or "mode" to impute the missing data my the mode. Default = "mean".}            
+
+\item{ratio.check}{if TRUE, run "snp.check" with ratio data.}
 }
 \value{
 Matrix with the marker-bases relationships between the individuals
@@ -36,7 +42,7 @@ Matrix with the marker-bases relationships between the individuals
 Given a matrix (individual x markers), a method, a missing value, and a maf threshold, return a additive or non-additive relationship matrix. For diploids, the methods "Yang" and "VanRaden" for additive relationship matrices, and "Su" and "Vitezica" for non-additive relationship matrices are implemented. For autopolyploids, the method "VanRaden" for additive relationship, method "Slater" for full-autopolyploid model including non-additive effects, and pseudo-diploid parametrization are implemented.
 }
 \examples{
-\donttest{
+\dontrun{
 ## Diploid Example
 data(snp.pine)
 #Verifying if data is coded as 0,1,2 and missing value.
@@ -77,5 +83,5 @@ Gmatrix.Pseudodiploid <- Gmatrix(markersdata, method="VanRaden", ploidy=4, pseud
 \emph{Endelman, J. B., et al., 2018. Genetic variance partitioning and genome-wide prediction with allele dosage information in autotetraploid potato. Genetics, 209(1) pp. 77-87.}
 }
 \author{
-Rodrigo R Amadeu \email{rramadeu@ufl.edu}, Marcio Resende Jr, Letícia AC Lara, and Ivone Oliveira
+Rodrigo R Amadeu \email{rramadeu@gmail.com}, Marcio Resende Jr, Letícia AC Lara, and Ivone Oliveira
 }

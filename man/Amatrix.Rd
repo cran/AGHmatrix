@@ -46,5 +46,5 @@ Amatrix(data=ped.mrode,ploidy=8)
 \emph{Kerr, Richard J., et al. "Use of the numerator relationship matrix in genetic analysis of autopolyploid species." Theoretical and Applied Genetics 124.7 (2012): 1271-1282.}
 }
 \author{
-Rodrigo R Amadeu, \email{rramadeu@ufl.edu}
+Rodrigo R Amadeu, \email{rramadeu@gmail.com}
 }

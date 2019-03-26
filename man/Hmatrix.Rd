@@ -44,5 +44,5 @@ Hmatrix(Amat,Gmat,markers)
 \emph{Munoz, P. R., Resende, M. F. R., Gezan, S. A., Resende, M. D. V., de los Campos, G., Kirst, M., Huber, D., Peter, G. F. (2014). Unraveling additive from nonadditive effects using genomic relationship matrices. Genetics, 198.4: 1759-1768.}
 }
 \author{
-Rodrigo R Amadeu, \email{rramadeu@ufl.edu}
+Rodrigo R Amadeu, \email{rramadeu@gmail.com}
 }

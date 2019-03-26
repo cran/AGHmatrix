@@ -4,7 +4,7 @@
 \alias{datatreat}
 \title{Organizes pedigree data in a chronological way}
 \usage{
-datatreat(data = NULL, n.max = 50, unk = 0, file = NULL, log = FALSE)
+datatreat(data = NULL, n.max = 50, unk = 0, save = FALSE)
 }
 \arguments{
 \item{data}{name of the pedigree data frame. Default=NULL.}
@@ -13,9 +13,7 @@ datatreat(data = NULL, n.max = 50, unk = 0, file = NULL, log = FALSE)
 
 \item{unk}{the code of the data missing. Default=0.}
 
-\item{file}{name of the file to be saved. Default=NULL.}
-
-\item{log}{if TRUE print the interaction number to sort the individuals. Default = FALSE}
+\item{save}{if TRUE, save the genealogy in a .txt file}
 }
 \value{
 list with parental 1, parental 2, and real names of the individuals (key) also saves a txt file with the new chronological pedigree.
@@ -29,5 +27,5 @@ datatreat(ped.mrode)
 
 }
 \author{
-Rodrigo R Amadeu, \email{rramadeu@ufl.edu}
+Rodrigo R Amadeu, \email{rramadeu@gmail.com}
 }
