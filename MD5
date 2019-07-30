@@ -1,8 +1,8 @@
-68745f6cd96f9e8129828f67ad7ddb8c *DESCRIPTION
+b81be714b80e27fe56b2708eadb99af9 *DESCRIPTION
 d38297ca48ea1a0297a09d5fc358ab5f *NAMESPACE
 f41994387102ccfd70b5beb419442177 *R/Amatrix.R
 06f81fbcb07858e08784397c30f3daf7 *R/Gmatrix.R
-677febe8e41c99033127c36b44b9174e *R/Hmatrix.R
+7c368f968512a7f8112e02812258c24d *R/Hmatrix.R
 6192cf2f9286184a1b2e39207535db36 *R/datatreat.R
 dd0b2423018e8bc8f1cdc78ae0f25607 *R/formatmatrix.R
 4c1720629c65ebefa4bf9d480cb518e6 *R/missingdata.R
@@ -19,7 +19,7 @@ f550fb1b706cc38b9e4a090667a53ed9 *data/ped.sol.rdata
 44b12d82aa8ed6d0cafc2bbe511972c9 *inst/CITATION
 2d4e1c05ea9befda7becee654e9b8b43 *inst/doc/Tutorial_AGHmatrix.R
 1ca459418cdf69c2c3157edccab65985 *inst/doc/Tutorial_AGHmatrix.Rmd
-cad78ce2a75bf2f0d6634815aa16ad7b *inst/doc/Tutorial_AGHmatrix.pdf
+f4aef739637a7e62e8e0d0ae8bc34f67 *inst/doc/Tutorial_AGHmatrix.pdf
 abc5211ef10c29c197c08b898759b5ac *inst/misc/ISSUE
 35166e0772c88f8844ec4bc8feb4ef1e *inst/misc/Tutorial_AGHmatrix.R
 381ca8047ae5fe997597d83711170495 *inst/misc/Tutorial_AGHmatrix.Rmd
