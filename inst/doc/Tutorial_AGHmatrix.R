@@ -1,4 +1,4 @@
-## ----knitr_init, echo=FALSE, cache=FALSE---------------------------------
+## ----knitr_init, echo=FALSE, cache=FALSE--------------------------------------
 library(knitr)
 library(rmarkdown)
 
@@ -12,10 +12,10 @@ knitr::opts_chunk$set(collapse = TRUE,
                       cache = TRUE)
 
 
-## ---- echo=FALSE, results='hide'-----------------------------------------
+## ---- echo=FALSE, results='hide'----------------------------------------------
 library(AGHmatrix)
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  ## Install stable version
 #  install.packages("AGHmatrix")
 #  
@@ -26,12 +26,12 @@ library(AGHmatrix)
 #  ## Load
 #  library(AGHmatrix)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 data(ped.mrode)
 ped.mrode
 str(ped.mrode) #check the structure
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  #Computing additive relationship matrix for diploids:
 #  Amatrix(ped.mrode, ploidy=2)
 #  
@@ -56,15 +56,15 @@ str(ped.mrode) #check the structure
 #  # and double-reduction of 10%:
 #  Amatrix(ped.mrode, ploidy=6, w=0.1)
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  ?Amatrix
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 data(snp.pine)
 snp.pine[1:5,1:5]
 str(snp.pine)
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  #Computing the additive relationship matrix based on VanRaden 2008
 #  G_VanRadenPine <- Gmatrix(SNPmatrix=snp.pine, missingValue=-9,
 #                            maf=0.05, method="VanRaden")
@@ -81,10 +81,10 @@ str(snp.pine)
 #  G_VitezicaPine <- Gmatrix(SNPmatrix=snp.pine, missingValue=-9,
 #                            maf=0.05, method="Vitezica")
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  ?Gmatrix
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  #Loading the data
 #  data(snp.sol)
 #  str(snp.sol)
@@ -104,10 +104,10 @@ str(snp.pine)
 #  # and 7)
 #  G_Pseudodiploid <- Gmatrix(snp.sol, method="VanRaden", ploidy=4, pseudo.diploid=TRUE)
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  ?Gmatrix
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  data(ped.sol)
 #  data(snp.sol)
 #  
@@ -127,12 +127,12 @@ str(snp.pine)
 #                        ploidy=4, method="Munoz",
 #                        missingValue=-9, maf=0.05)
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  data(snp.pine)
 #  A <- Gmatrix(SNPmatrix=snp.pine, method="VanRaden", missingValue=-9, maf=0.05)
 #  D <- Gmatrix(SNPmatrix=snp.pine, method="Vitezica", missingValue=-9,maf=0.05)
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  #Additive-by-Additive Interactions
 #  A_A <- A*A
 #  #Dominance-by-Additive Interactions
@@ -140,7 +140,7 @@ str(snp.pine)
 #  #Dominance-by-Dominance Interactions
 #  D_D <- D*D
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  #Additive-by-Additive-by-Additive Interactions
 #  A_A_A <- A*A*A
 #  #Additive-by-Additive-by-Dominance Interactions
@@ -150,7 +150,7 @@ str(snp.pine)
 #  #Dominance-by-Dominance-by-Dominance Interactions
 #  D_D_D <- D*D*D
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  #Loading the data example
 #  data(ped.mrode)
 #  
@@ -164,10 +164,10 @@ str(snp.pine)
 #  # will convert it and save in your working directory
 #  formatmatrix(Ainv, round.by=12, exclude.0=TRUE, name="Ainv")
 
-## ----eval=FALSE,echo=FALSE-----------------------------------------------
+## ----eval=FALSE,echo=FALSE----------------------------------------------------
 #  #To knit an this vignette into an .R file
 #  knitr::purl("vignettes/Tutorial_AGHmatrix.Rmd")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 sessionInfo()
 
