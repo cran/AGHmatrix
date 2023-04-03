@@ -1,37 +1,8 @@
----
-title: "AGHmatrix Tutorial"
-author: "Rodrigo Amadeu"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{AGHmatrix Tutorial}
-  %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
----
+[![](https://cranlogs.r-pkg.org/badges/grand-total/AGHmatrix)](https://cran.r-project.org/package=AGHmatrix)
 
-```{r knitr_init, echo=FALSE, cache=FALSE}
-library(knitr)
-library(rmarkdown)
+<img src="https://raw.githubusercontent.com/rramadeu/AGHmatrix/master/inst/misc/logo.jpg" width="20%" height="20%" /> 
 
-knitr::opts_chunk$set(collapse = TRUE,
-                      comment = "#>",
-                      fig.width = 7,
-                      fig.height = 8,
-                      fig.align = "center",
-                      dev = "png",
-                      dpi = 72,
-                      cache = TRUE)
-
-```
-
-```{r, echo=FALSE, results='hide'}
-library(AGHmatrix)
-```
-
-## Contact
-Rodrigo R Amadeu  
-rramadeu at gmail dot com  
-https://rramadeu.github.io
+**Relationship Matrices for Diploid and Autopolyploid Species**
 
 ## Overview
 AGHmatrix software is an R-package to build relationship matrices using pedigree (A matrix) and/or molecular markers (G matrix) with the possibility to build a combined matrix of Pedigree corrected by Molecular (H matrix). The package works with diploid and autopolyploid data.
@@ -65,6 +36,11 @@ Additionally there is a beta implementation to compute A matrix when parentage i
 To cite this R package:
 
 Amadeu, RR, C Cellon, JW Olmstead, AAF Garcia, MFR Resende, and PR Munoz. 2016. AGHmatrix: R package to construct relationship matrices for autotetraploid and diploid species: a blueberry example. *The Plant Genome* 9(3). [doi: 10.3835/plantgenome2016.01.0009](http://dx.doi.org/10.3835/plantgenome2016.01.0009)
+
+## Contact
+Rodrigo R Amadeu  
+rramadeu at gmail dot com  
+https://rramadeu.github.io
 
 ## Installing and loading
 Within R:
@@ -326,31 +302,11 @@ If `fixedParent=TRUE`, the above pedigree will be interpreted with the possible 
 AmatrixPolyCross(pedigree,fixedParent=TRUE)
 ```
 
-## Amatrix() benchmark
+## A matrix benchmark
 
 It follows a small memory and computational time profiling for the `Amatrix()` function. The required RAM was computed based on the peak of the process for different pedigree sizes (based on /usr/bin/time -v output). The time profiling was done using AMD Milan 2.95GHz, so it might be an underestimated value when compared with lower speed processors. Numerator relationship matrices for pedigrees with less than 20,000 rows can built with low-specs user-end machines (<8GB RAM) using our package.
 
-```{r, eval=TRUE,echo=FALSE}
-x = c(1000,5000,10000,20000,30000,40000,50000,60000,70000,80000,90000,100000)/1000 #Pedigree Size
-y = c(252156,622500,1795260,6481064,14313448,25227680,49081224,70622336,96017144,125320048,158444856,194731908)/1e+6 #RAM GB 
-ytime = c(0.0025, 0.080, 0.2, 0.89, 1.62,3.01,4.52,7.12,9.15,13.13,15.13,20) #minutes
-df = data.frame(size=x,ram=y,time=ytime)
-
-plot(x=df$size,y=df$ram, 
-     ylab = "RAM (GB) at the peak of Amatrix() function",
-     xlab = "Pedigree size (in 1,000 rows)",
-     type="b",
-     axes=FALSE)
-axis(side = 2, at = c(0,4,8,16,32,48,64,96,144,192),cex.axis=.75)
-axis(side = 1, at = c(1,5,10,20,30,40,50,60,70,80,90,100),cex.axis=.75)
-
-plot(x=df$size,y=df$time, type="b",
-     ylab = "Time to run (minutes) the Amatrix() function",
-     xlab = "Pedigree size (in 1,000 rows)",
-     axes=FALSE)
-axis(side = 2, at = seq(0,20,2),cex.axis=.75)
-axis(side = 1, at = c(1,5,10,20,30,40,50,60,70,80,90,100),cex.axis=.75)
-```
+<img src="https://github.com/rramadeu/Tutorials_File/raw/master/Amatrix_benchmark.png" width="500">
 
 
 ## Bibliography
@@ -395,13 +351,3 @@ VanRaden, P. 2008 Efficient methods to compute genomic predictions. Journal of d
 Vitezica, ZG, et al. 2013 On the additive and dominant variance and covariance of individuals within the genomic selection scope. Genetics 195, 1223–1230. https://doi.org/10.1534/genetics.113.155176
 
 Yang, J, et al. 2010 Common snps explain a large proportion of the heritability for human height. Nature genetics 42, 565–569. https://doi.org/10.1038/ng.608
-
-```{r,eval=FALSE,echo=FALSE}
-#To knit an this vignette into an .R file
-knitr::purl("vignettes/Tutorial_AGHmatrix.Rmd")
-```
-
-
-```{r}
-sessionInfo()
-```
