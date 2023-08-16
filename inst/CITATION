@@ -1,17 +1,16 @@
+
 bibentry(
   bibtype="Article",
-  textVersion = "Amadeu, R. R., C. Cellon, J. W. Olmstead, A. A. F. Garcia, M. F. R. Resende, and P. R. Muñoz. 2016. AGHmatrix: R Package to Construct Relationship Matrices for Autotetraploid and Diploid Species: A Blueberry Example. The Plant Genome 9. doi:10.3835/plantgenome2016.01.0009",
+  textVersion = "Amadeu, R. R., Garcia, A. A. F., Munoz, P. R., and Ferrão, L. F. V. (2023) AGHmatrix: genetic relationship matrices in R. Bioinformatics, 39(7), btad445. doi:10.1093/bioinformatics/btad445",
   header = "To cite AGHmatrix in publications use:",
-  title = "AGHmatrix: R Package to Construct Relationship Matrices for Autotetraploid and Diploid Species: A Blueberry Example",
+  title = "AGHmatrix: genetic relationship matrices in R ",
   author = c(
             person(given="Rodrigo", family="R Amadeu"), 
-            person(given="Catherine", family="Cellon"),
-            person(given="James W", family="Olmestead"),
             person(given="Antonio Augusto", family="Franco Garcia"),
-            person(given="Marcio F R", family="Resende"),
-            person(given="Patricio", family="Munoz")),
-  journal = "The Plant Genome",
-  volume = "9",
-  number = "3",
-  year    = "2016"
+            person(given="Patricio", family="Munoz"),
+            person(given="Luis Felipe", family="V Ferrao")),
+  journal = "Bioinformatics",
+  volume = "39",
+  number = "7",
+  year    = "2023"
 )

@@ -12,7 +12,7 @@
 
 <meta name="author" content="Rodrigo Amadeu" />
 
-<meta name="date" content="2023-04-03" />
+<meta name="date" content="2023-08-16" />
 
 <title>AGHmatrix Tutorial</title>
 
@@ -340,7 +340,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">AGHmatrix Tutorial</h1>
 <h4 class="author">Rodrigo Amadeu</h4>
-<h4 class="date">2023-04-03</h4>
+<h4 class="date">2023-08-16</h4>
 
 
 
@@ -438,24 +438,21 @@ parentage is not deterministic as in a polycross design. See
 <div id="citation" class="section level2">
 <h2>Citation</h2>
 <p>To cite this R package:</p>
-<p>Amadeu, RR, C Cellon, JW Olmstead, AAF Garcia, MFR Resende, and PR
-Munoz. 2016. AGHmatrix: R package to construct relationship matrices for
-autotetraploid and diploid species: a blueberry example. <em>The Plant
-Genome</em> 9(3). <a href="http://dx.doi.org/10.3835/plantgenome2016.01.0009">doi:
-10.3835/plantgenome2016.01.0009</a></p>
+<p>Amadeu RR, Garcia AA, Munoz PR, Ferrão LF. AGHmatrix: genetic
+relationship matrices in R. Bioinformatics. 2023 Jul 1;39(7):btad445. <a href="https://doi.org/10.1093/bioinformatics/btad445" class="uri">https://doi.org/10.1093/bioinformatics/btad445</a></p>
 </div>
 <div id="installing-and-loading" class="section level2">
 <h2>Installing and loading</h2>
 <p>Within R:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Install stable version</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;AGHmatrix&quot;</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Install development version</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;rramadeu/AGHmatrix&quot;</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Load </span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AGHmatrix)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="do">## Install stable version</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;AGHmatrix&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="do">## Install development version</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;rramadeu/AGHmatrix&quot;</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="do">## Load </span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="fu">library</span>(AGHmatrix)</span></code></pre></div>
 </div>
 <div id="relationship-matrices-using-pedigree-data---a-matrix" class="section level2">
 <h2>Relationship matrices using pedigree data - A matrix</h2>
@@ -474,20 +471,20 @@ is the father (so, no sex column). There is a pedigree data example
 (<code>ped.mrode</code>) that can be used to look at the structure and
 order the data.</p>
 <p>To load <code>ped.mrode</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ped.mrode)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ped.mrode</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Ind Par1 Par2</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Anc1    0    0</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Anc2    0    0</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Var1 Anc1 Anc2</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Var2 Anc1    0</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 Var3 Var2 Var1</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 Var4 Var3 Anc2</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ped.mrode) <span class="co">#check the structure</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &#39;data.frame&#39;:    6 obs. of  3 variables:</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Ind : Factor w/ 6 levels &quot;Anc1&quot;,&quot;Anc2&quot;,..: 1 2 3 4 5 6</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Par1: Factor w/ 4 levels &quot;0&quot;,&quot;Anc1&quot;,&quot;Var2&quot;,..: 1 1 2 2 3 4</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Par2: Factor w/ 3 levels &quot;0&quot;,&quot;Anc2&quot;,&quot;Var1&quot;: 1 1 2 1 3 2</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">data</span>(ped.mrode)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>ped.mrode</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt;    Ind Par1 Par2</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt; 1 Anc1    0    0</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; 2 Anc2    0    0</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; 3 Var1 Anc1 Anc2</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; 4 Var2 Anc1    0</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; 5 Var3 Var2 Var1</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; 6 Var4 Var3 Anc2</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="fu">str</span>(ped.mrode) <span class="co">#check the structure</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; &#39;data.frame&#39;:    6 obs. of  3 variables:</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt;  $ Ind : Factor w/ 6 levels &quot;Anc1&quot;,&quot;Anc2&quot;,..: 1 2 3 4 5 6</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt;  $ Par1: Factor w/ 4 levels &quot;0&quot;,&quot;Anc1&quot;,&quot;Var2&quot;,..: 1 1 2 2 3 4</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt;  $ Par2: Factor w/ 3 levels &quot;0&quot;,&quot;Anc2&quot;,&quot;Var1&quot;: 1 1 2 1 3 2</span></span></code></pre></div>
 <p>The example <code>ped.mrode</code> has 3 columns, column 1 contains
 the names of the individual/genotypes, column 2 contains the names of
 the first parent, column 3 contains the names of the second parental
@@ -508,32 +505,32 @@ autotetraploids, there is the option to include double-reduction
 fraction. For diploids there is the option to compute the dominant
 relationship matrix (Cockerham, 1954).</p>
 <p>It follows some usage examples with the <code>ped.mrode</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing additive relationship matrix for diploids (Henderson 1976):</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Amatrix</span>(ped.mrode, <span class="at">ploidy=</span><span class="dv">2</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing dominant relationship matrix for diploids (Cockerham 1954):</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">Amatrix</span>(ped.mrode, <span class="at">ploidy=</span><span class="dv">2</span>, <span class="at">dominance=</span><span class="cn">TRUE</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing additive relationship matrix for autotetraploids (Kerr 2012):</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">Amatrix</span>(ped.mrode, <span class="at">ploidy=</span><span class="dv">4</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing additive relationship matrix for autooctaploids (Kerr 2012):</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">Amatrix</span>(ped.mrode, <span class="at">ploidy=</span><span class="dv">8</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing additive relationship matrix for autotetraploids</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># and double-reduction of 0.1 (Kerr 2012):</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">Amatrix</span>(ped.mrode, <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">w=</span><span class="fl">0.1</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing additive relationship matrix for autotetraploids</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># and double-reduction of 0.1 as in Slater et al. (2014):</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">Amatrix</span>(ped.mrode, <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">w=</span><span class="fl">0.1</span>, <span class="at">slater =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#not recommended, but kept in the package to reproduce some former analysis</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing additive relationship matrix for autohexaploids</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># and double-reduction of 0.1 (Kerr 2012):</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">Amatrix</span>(ped.mrode, <span class="at">ploidy=</span><span class="dv">6</span>, <span class="at">w=</span><span class="fl">0.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co">#Computing additive relationship matrix for diploids (Henderson 1976):</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">Amatrix</span>(ped.mrode, <span class="at">ploidy=</span><span class="dv">2</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#Computing dominant relationship matrix for diploids (Cockerham 1954):</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">Amatrix</span>(ped.mrode, <span class="at">ploidy=</span><span class="dv">2</span>, <span class="at">dominance=</span><span class="cn">TRUE</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#Computing additive relationship matrix for autotetraploids (Kerr 2012):</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="fu">Amatrix</span>(ped.mrode, <span class="at">ploidy=</span><span class="dv">4</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#Computing additive relationship matrix for autooctaploids (Kerr 2012):</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="fu">Amatrix</span>(ped.mrode, <span class="at">ploidy=</span><span class="dv">8</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#Computing additive relationship matrix for autotetraploids</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co"># and double-reduction of 0.1 (Kerr 2012):</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="fu">Amatrix</span>(ped.mrode, <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">w=</span><span class="fl">0.1</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#Computing additive relationship matrix for autotetraploids</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co"># and double-reduction of 0.1 as in Slater et al. (2014):</span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="fu">Amatrix</span>(ped.mrode, <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">w=</span><span class="fl">0.1</span>, <span class="at">slater =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#not recommended, but kept in the package to reproduce some former analysis</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">#Computing additive relationship matrix for autohexaploids</span></span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co"># and double-reduction of 0.1 (Kerr 2012):</span></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="fu">Amatrix</span>(ped.mrode, <span class="at">ploidy=</span><span class="dv">6</span>, <span class="at">w=</span><span class="fl">0.1</span>)</span></code></pre></div>
 <p>More information about <code>Amatrix</code> can be found with:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>?Amatrix</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>?Amatrix</span></code></pre></div>
 </div>
 <div id="diploid-g-matrix-relationship-matrices-using-the-molecular-data" class="section level2">
 <h2>Diploid G matrix: relationship matrices using the molecular
@@ -552,25 +549,25 @@ matrix either as proposed by Su et al. (2012) or as proposed by Vitezica
 et al. (2013). As an example, here we build the four matrices using real
 data from Resende et al. (2012).</p>
 <p>To load <code>snp.pine</code> and to check its structure:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(snp.pine)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>snp.pine[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         0-10024-01-114 0-10037-01-257 0-10040-02-394 0-10040-02-41</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1087120             -9              1             -9            -9</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1085618              2              2              2             2</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1091040              2              1              2             2</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1091686              2              1              2             2</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1082624              2              2              0             1</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         0-10044-01-392</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1087120             -9</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1085618              2</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1091040              2</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1091686              2</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1082624              1</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(snp.pine)</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  int [1:926, 1:4853] -9 2 2 2 2 2 2 2 2 2 ...</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;dimnames&quot;)=List of 2</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ : chr [1:926] &quot;1087120&quot; &quot;1085618&quot; &quot;1091040&quot; &quot;1091686&quot; ...</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ : chr [1:4853] &quot;0-10024-01-114&quot; &quot;0-10037-01-257&quot; &quot;0-10040-02-394&quot; &quot;0-10040-02-41&quot; ...</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">data</span>(snp.pine)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>snp.pine[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt;         0-10024-01-114 0-10037-01-257 0-10040-02-394 0-10040-02-41</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; 1087120             -9              1             -9            -9</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; 1085618              2              2              2             2</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; 1091040              2              1              2             2</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; 1091686              2              1              2             2</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; 1082624              2              2              0             1</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt;         0-10044-01-392</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; 1087120             -9</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; 1085618              2</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; 1091040              2</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; 1091686              2</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; 1082624              1</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="fu">str</span>(snp.pine)</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt;  int [1:926, 1:4853] -9 2 2 2 2 2 2 2 2 2 ...</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;dimnames&quot;)=List of 2</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt;   ..$ : chr [1:926] &quot;1087120&quot; &quot;1085618&quot; &quot;1091040&quot; &quot;1091686&quot; ...</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt;   ..$ : chr [1:4853] &quot;0-10024-01-114&quot; &quot;0-10037-01-257&quot; &quot;0-10040-02-394&quot; &quot;0-10040-02-41&quot; ...</span></span></code></pre></div>
 <p>In this dataset, we have 926 individuals with 4853 markers and the
 missing data value is <code>-9</code>.</p>
 <p>It follows some examples with the <code>snp.pine</code> data where
@@ -578,23 +575,23 @@ the unknown value (<code>missingValue</code>) is <code>-9</code>. Here
 we set minimum allele frequency to <code>0.05</code>, so markers with
 minor allele frequency lower than 0.05 are removed from the dataset
 prior to the G matrix construction.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing the additive relationship matrix based on VanRaden 2008</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>G_VanRadenPine <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(<span class="at">SNPmatrix=</span>snp.pine, <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>, </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">maf=</span><span class="fl">0.05</span>, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing the additive relationship matrix based on Yang 2010</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>G_YangPine <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(<span class="at">SNPmatrix=</span>snp.pine, <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>, </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">maf=</span><span class="fl">0.05</span>, <span class="at">method=</span><span class="st">&quot;Yang&quot;</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing the dominance relationship matrix based on Su 2012</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>G_SuPine <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(<span class="at">SNPmatrix=</span>snp.pine, <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>, </span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                    <span class="at">maf=</span><span class="fl">0.05</span>, <span class="at">method=</span><span class="st">&quot;Su&quot;</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing the dominance relationship matrix based on Vitezica 2013</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>G_VitezicaPine <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(<span class="at">SNPmatrix=</span>snp.pine, <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>, </span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                          <span class="at">maf=</span><span class="fl">0.05</span>, <span class="at">method=</span><span class="st">&quot;Vitezica&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co">#Computing the additive relationship matrix based on VanRaden 2008</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>G_VanRadenPine <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(<span class="at">SNPmatrix=</span>snp.pine, <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>, </span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>                          <span class="at">maf=</span><span class="fl">0.05</span>, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#Computing the additive relationship matrix based on Yang 2010</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>G_YangPine <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(<span class="at">SNPmatrix=</span>snp.pine, <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>, </span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>                      <span class="at">maf=</span><span class="fl">0.05</span>, <span class="at">method=</span><span class="st">&quot;Yang&quot;</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#Computing the dominance relationship matrix based on Su 2012</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>G_SuPine <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(<span class="at">SNPmatrix=</span>snp.pine, <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>, </span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>                    <span class="at">maf=</span><span class="fl">0.05</span>, <span class="at">method=</span><span class="st">&quot;Su&quot;</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#Computing the dominance relationship matrix based on Vitezica 2013</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>G_VitezicaPine <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(<span class="at">SNPmatrix=</span>snp.pine, <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>, </span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>                          <span class="at">maf=</span><span class="fl">0.05</span>, <span class="at">method=</span><span class="st">&quot;Vitezica&quot;</span>)</span></code></pre></div>
 <p>More information about <code>Gmatrix</code> can be found with:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>?Gmatrix</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>?Gmatrix</span></code></pre></div>
 </div>
 <div id="autopolyploid-g-matrix-relationship-matrices-using-the-molecular-data" class="section level2">
 <h2>Autopolyploid G matrix: relationship matrices using the molecular
@@ -625,30 +622,30 @@ is the sampling variance of the <span class="math inline">\(i_th\)</span> marker
 equivalent when sampling size goes to the infinity. The default is to
 use the sampling variance as the correction (i.e.,
 <code>ploidy.correction=FALSE</code>).</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Loading the data</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(snp.sol)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(snp.sol)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing the additive relationship matrix based on VanRaden 2008</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># adapted by Ashraf 2016</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>G_VanRaden <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, <span class="at">ploidy=</span><span class="dv">4</span>)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing the dominance (digenic) matrix based on Endelman 2018 (Eq. 19)</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>G_Dominance <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, <span class="at">method=</span><span class="st">&quot;Endelman&quot;</span>, <span class="at">ploidy=</span><span class="dv">4</span>)</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing the full-autopolyploid matrix based on Slater 2016 (Eq. 8</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#and 9)</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>G_FullAutopolyploid <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, <span class="at">method=</span><span class="st">&quot;Slater&quot;</span>, <span class="at">ploidy=</span><span class="dv">4</span>)</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing the pseudodiploid matrix based on Slater 2016 (Eq. 5, 6,</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#and 7)</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>G_Pseudodiploid <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">pseudo.diploid=</span><span class="cn">TRUE</span>) </span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing G matrix with specific weight for each marker as </span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co"># in Liu et al. (2020).</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>Gmatrix_weighted <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, <span class="at">weights =</span> <span class="fu">runif</span>(<span class="dv">3895</span>,<span class="fl">0.001</span>,<span class="fl">0.1</span>), <span class="at">ploidy=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co">#Loading the data</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">data</span>(snp.sol)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">str</span>(snp.sol)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#Computing the additive relationship matrix based on VanRaden 2008</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co"># adapted by Ashraf 2016</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>G_VanRaden <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, <span class="at">ploidy=</span><span class="dv">4</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#Computing the dominance (digenic) matrix based on Endelman 2018 (Eq. 19)</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>G_Dominance <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, <span class="at">method=</span><span class="st">&quot;Endelman&quot;</span>, <span class="at">ploidy=</span><span class="dv">4</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#Computing the full-autopolyploid matrix based on Slater 2016 (Eq. 8</span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#and 9)</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>G_FullAutopolyploid <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, <span class="at">method=</span><span class="st">&quot;Slater&quot;</span>, <span class="at">ploidy=</span><span class="dv">4</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#Computing the pseudodiploid matrix based on Slater 2016 (Eq. 5, 6,</span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#and 7)</span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>G_Pseudodiploid <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">pseudo.diploid=</span><span class="cn">TRUE</span>) </span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="co">#Computing G matrix with specific weight for each marker as </span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co"># in Liu et al. (2020).</span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a>Gmatrix_weighted <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, <span class="at">weights =</span> <span class="fu">runif</span>(<span class="dv">3895</span>,<span class="fl">0.001</span>,<span class="fl">0.1</span>), <span class="at">ploidy=</span><span class="dv">4</span>)</span></code></pre></div>
 <p>More information about <code>Gmatrix</code> can be found with:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>?Gmatrix</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>?Gmatrix</span></code></pre></div>
 </div>
 <div id="ratio-non-dosage-g-matrix-relationship-matrices-using-the-molecular-data-without-dosage-calling" class="section level2">
 <h2>Ratio (non-dosage) G matrix: relationship matrices using the
@@ -662,28 +659,28 @@ alleles over the read depth for each individual-marker combination
 over the sum of the signals of the alternative and reference alleles
 (GCMS-like technique). It can also be used for family-pool
 genotypes.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Loading the data</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AGHmatrix)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(snp.sol) </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>snp.sol.ratio <span class="ot">=</span> snp.sol<span class="sc">/</span><span class="dv">4</span> <span class="co">#transforming it in a ratio of the minor allele frequency</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>Gmatrix <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">ratio=</span><span class="cn">FALSE</span>)  </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>Gmatrix.ratio <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol.ratio, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">ratio=</span><span class="cn">TRUE</span>)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>Gmatrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]<span class="sc">==</span>Gmatrix.ratio[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="do">## it also has the ploidy.correction option</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>Gmatrix.alternative <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, </span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                               <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, </span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>                               <span class="at">ploidy=</span><span class="dv">4</span>, </span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                               <span class="at">ratio=</span><span class="cn">FALSE</span>, </span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                               <span class="at">ploidy.correction=</span><span class="cn">TRUE</span>) </span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>Gmatrix.ratio.alternative <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol.ratio, </span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, </span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">ploidy=</span><span class="dv">4</span>, </span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">ratio=</span><span class="cn">TRUE</span>, </span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">ploidy.correction=</span><span class="cn">TRUE</span>)</span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>Gmatrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]<span class="sc">==</span>Gmatrix.alternative[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>Gmatrix.alternative[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]<span class="sc">==</span>Gmatrix.ratio.alternative[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co">#Loading the data</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">library</span>(AGHmatrix)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="fu">data</span>(snp.sol) </span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>snp.sol.ratio <span class="ot">=</span> snp.sol<span class="sc">/</span><span class="dv">4</span> <span class="co">#transforming it in a ratio of the minor allele frequency</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>Gmatrix <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">ratio=</span><span class="cn">FALSE</span>)  </span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>Gmatrix.ratio <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol.ratio, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">ratio=</span><span class="cn">TRUE</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>Gmatrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]<span class="sc">==</span>Gmatrix.ratio[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="do">## it also has the ploidy.correction option</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>Gmatrix.alternative <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, </span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>                               <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, </span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>                               <span class="at">ploidy=</span><span class="dv">4</span>, </span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a>                               <span class="at">ratio=</span><span class="cn">FALSE</span>, </span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>                               <span class="at">ploidy.correction=</span><span class="cn">TRUE</span>) </span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>Gmatrix.ratio.alternative <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol.ratio, </span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>                                     <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, </span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>                                     <span class="at">ploidy=</span><span class="dv">4</span>, </span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a>                                     <span class="at">ratio=</span><span class="cn">TRUE</span>, </span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a>                                     <span class="at">ploidy.correction=</span><span class="cn">TRUE</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a>Gmatrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]<span class="sc">==</span>Gmatrix.alternative[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a>Gmatrix.alternative[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]<span class="sc">==</span>Gmatrix.ratio.alternative[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
 </div>
 <div id="combined-relationship-matrix---h-matrix" class="section level2">
 <h2>Combined relationship matrix - H matrix</h2>
@@ -697,23 +694,23 @@ modified version from Legarra et al. 2009 where combines A and G matrix
 using scaling factors. As an example, here we build the matrices using
 data from Endelman et al. (2018) (<code>ped.sol</code> and
 <code>snp.sol</code>).</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ped.sol)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(snp.sol)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing the numerator relationship matrix 10% of double-reduction</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>Amat <span class="ot">&lt;-</span> <span class="fu">Amatrix</span>(ped.sol, <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">w =</span> <span class="fl">0.1</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>Gmat <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, <span class="at">ploidy=</span><span class="dv">4</span>,</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">maf=</span><span class="fl">0.05</span>, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>Gmat <span class="ot">&lt;-</span> <span class="fu">round</span>(Gmat,<span class="dv">3</span>) <span class="co">#see appendix</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing H matrix (Martini)</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>Hmat_Martini <span class="ot">&lt;-</span> <span class="fu">Hmatrix</span>(<span class="at">A=</span>Amat, <span class="at">G=</span>Gmat, <span class="at">method=</span><span class="st">&quot;Martini&quot;</span>, </span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>, <span class="at">maf=</span><span class="fl">0.05</span>)</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing H matrix (Munoz)</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>Hmat_Munoz <span class="ot">&lt;-</span> <span class="fu">Hmatrix</span>(<span class="at">A=</span>Amat, <span class="at">G=</span>Gmat, <span class="at">markers =</span> snp.sol, </span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>                      <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">method=</span><span class="st">&quot;Munoz&quot;</span>, </span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>                      <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>, <span class="at">maf=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">data</span>(ped.sol)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">data</span>(snp.sol)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#Computing the numerator relationship matrix 10% of double-reduction</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>Amat <span class="ot">&lt;-</span> <span class="fu">Amatrix</span>(ped.sol, <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">w =</span> <span class="fl">0.1</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>Gmat <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(snp.sol, <span class="at">ploidy=</span><span class="dv">4</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>                <span class="at">maf=</span><span class="fl">0.05</span>, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>Gmat <span class="ot">&lt;-</span> <span class="fu">round</span>(Gmat,<span class="dv">3</span>) <span class="co">#see appendix</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#Computing H matrix (Martini)</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>Hmat_Martini <span class="ot">&lt;-</span> <span class="fu">Hmatrix</span>(<span class="at">A=</span>Amat, <span class="at">G=</span>Gmat, <span class="at">method=</span><span class="st">&quot;Martini&quot;</span>, </span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>                        <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>, <span class="at">maf=</span><span class="fl">0.05</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#Computing H matrix (Munoz)</span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a>Hmat_Munoz <span class="ot">&lt;-</span> <span class="fu">Hmatrix</span>(<span class="at">A=</span>Amat, <span class="at">G=</span>Gmat, <span class="at">markers =</span> snp.sol, </span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a>                      <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">method=</span><span class="st">&quot;Munoz&quot;</span>, </span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a>                      <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>, <span class="at">maf=</span><span class="fl">0.05</span>)</span></code></pre></div>
 </div>
 <div id="covariance-matrices-due-to-epistatic-terms" class="section level2">
 <h2>Covariance matrices due to epistatic terms</h2>
@@ -722,25 +719,25 @@ using Hadamard products (i.e. cell-by-cell product), denoted by
 <code>*</code>. For more information please see Munoz et al. (2014). In
 this example we are using the molecular-based relationship matrices.
 First, build the additive and dominance matrices:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(snp.pine)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(<span class="at">SNPmatrix=</span>snp.pine, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>, <span class="at">maf=</span><span class="fl">0.05</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(<span class="at">SNPmatrix=</span>snp.pine, <span class="at">method=</span><span class="st">&quot;Vitezica&quot;</span>, <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>,<span class="at">maf=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">data</span>(snp.pine)</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(<span class="at">SNPmatrix=</span>snp.pine, <span class="at">method=</span><span class="st">&quot;VanRaden&quot;</span>, <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>, <span class="at">maf=</span><span class="fl">0.05</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">Gmatrix</span>(<span class="at">SNPmatrix=</span>snp.pine, <span class="at">method=</span><span class="st">&quot;Vitezica&quot;</span>, <span class="at">missingValue=</span><span class="sc">-</span><span class="dv">9</span>,<span class="at">maf=</span><span class="fl">0.05</span>)</span></code></pre></div>
 <p>For the first degree epistatic terms:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Additive-by-Additive Interactions</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>A_A <span class="ot">&lt;-</span> A<span class="sc">*</span>A</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Dominance-by-Additive Interactions</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>D_A <span class="ot">&lt;-</span> D<span class="sc">*</span>A</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Dominance-by-Dominance Interactions</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>D_D <span class="ot">&lt;-</span> D<span class="sc">*</span>D</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co">#Additive-by-Additive Interactions</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>A_A <span class="ot">&lt;-</span> A<span class="sc">*</span>A</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#Dominance-by-Additive Interactions</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>D_A <span class="ot">&lt;-</span> D<span class="sc">*</span>A</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#Dominance-by-Dominance Interactions</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>D_D <span class="ot">&lt;-</span> D<span class="sc">*</span>D</span></code></pre></div>
 <p>For the second degree epistatic terms:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Additive-by-Additive-by-Additive Interactions</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>A_A_A <span class="ot">&lt;-</span> A<span class="sc">*</span>A<span class="sc">*</span>A</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Additive-by-Additive-by-Dominance Interactions</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>A_A_D <span class="ot">&lt;-</span> A<span class="sc">*</span>A<span class="sc">*</span>D</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Additive-by-Dominance-by-Dominance Interactions</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>A_D_D <span class="ot">&lt;-</span> A<span class="sc">*</span>D<span class="sc">*</span>D</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Dominance-by-Dominance-by-Dominance Interactions</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>D_D_D <span class="ot">&lt;-</span> D<span class="sc">*</span>D<span class="sc">*</span>D</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co">#Additive-by-Additive-by-Additive Interactions</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>A_A_A <span class="ot">&lt;-</span> A<span class="sc">*</span>A<span class="sc">*</span>A</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="co">#Additive-by-Additive-by-Dominance Interactions</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>A_A_D <span class="ot">&lt;-</span> A<span class="sc">*</span>A<span class="sc">*</span>D</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co">#Additive-by-Dominance-by-Dominance Interactions</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>A_D_D <span class="ot">&lt;-</span> A<span class="sc">*</span>D<span class="sc">*</span>D</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="co">#Dominance-by-Dominance-by-Dominance Interactions</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>D_D_D <span class="ot">&lt;-</span> D<span class="sc">*</span>D<span class="sc">*</span>D</span></code></pre></div>
 <p>And so on…</p>
 </div>
 <div id="exporting-your-matrix-as-three-columns-and-sparse-format-asreml---csv-format" class="section level2">
@@ -759,18 +756,18 @@ from your data (i.e., transforms into sparse); and, name that defines
 the name to be used in the exported file. Use the default if not sure
 what parameter use in these function. Here an example using
 <code>ped.mrode</code> data:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Loading the data example</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ped.mrode)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Computing the matrix</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">Amatrix</span>(<span class="at">data=</span>ped.mrode, <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">w=</span><span class="fl">0.1</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Building its inverse</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>Ainv <span class="ot">&lt;-</span> <span class="fu">solve</span>(A)</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Exporting it. The function &quot;formatmatrix&quot; </span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># will convert it and save in your working directory</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="fu">formatmatrix</span>(Ainv, <span class="at">round.by=</span><span class="dv">12</span>, <span class="at">exclude.0=</span><span class="cn">TRUE</span>, <span class="at">name=</span><span class="st">&quot;Ainv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co">#Loading the data example</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">data</span>(ped.mrode)</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#Computing the matrix</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">Amatrix</span>(<span class="at">data=</span>ped.mrode, <span class="at">ploidy=</span><span class="dv">4</span>, <span class="at">w=</span><span class="fl">0.1</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#Building its inverse</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>Ainv <span class="ot">&lt;-</span> <span class="fu">solve</span>(A)</span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#Exporting it. The function &quot;formatmatrix&quot; </span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co"># will convert it and save in your working directory</span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="fu">formatmatrix</span>(Ainv, <span class="at">round.by=</span><span class="dv">12</span>, <span class="at">exclude.0=</span><span class="cn">TRUE</span>, <span class="at">name=</span><span class="st">&quot;Ainv&quot;</span>)</span></code></pre></div>
 </div>
 <div id="relationship-matrices-using-pedigree-data-for-polycrosses---a-matrix-beta" class="section level2">
 <h2>Relationship matrices using pedigree data for polycrosses - A matrix
@@ -797,48 +794,48 @@ and are assumed unrelated; id 5 has three possible parents (1,2,3); id 6
 has three possible parents (2,3,4); id 7 has two parents (deterministic
 case here, the parents are 3 and 4); id 8 has four possible parents
 (5,6,7,1).</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>pedigree <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">id=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>,</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">parent1 =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>),</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">parent2 =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>),</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">parent3 =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">0</span>,<span class="dv">7</span>),</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">parent4 =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>),</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">parent5 =</span> <span class="dv">0</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pedigree)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id parent1 parent2 parent3 parent4 parent5</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1       0       0       0       0       0</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  2       0       0       0       0       0</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  3       0       0       0       0       0</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  4       0       0       0       0       0</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  5       1       2       3       0       0</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  6       2       3       4       0       0</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  7       3       4       0       0       0</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  8       5       6       7       1       0</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="fu">AmatrixPolyCross</span>(pedigree)</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Constructing matrix A using ploidy = 2 </span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed! Time = 0.0003333333  minutes</span></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           1         2         3         4         5         6         7</span></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1.0000000 0.0000000 0.0000000 0.0000000 0.3333333 0.0000000 0.0000000</span></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0.0000000 1.0000000 0.0000000 0.0000000 0.3333333 0.3333333 0.0000000</span></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 0.0000000 0.0000000 1.0000000 0.0000000 0.3333333 0.3333333 0.5000000</span></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.3333333 0.5000000</span></span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 0.3333333 0.3333333 0.3333333 0.0000000 1.0000000 0.2222222 0.1666667</span></span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 0.0000000 0.3333333 0.3333333 0.3333333 0.2222222 1.0000000 0.3333333</span></span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 0.0000000 0.0000000 0.5000000 0.5000000 0.1666667 0.3333333 1.0000000</span></span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 0.3333333 0.1666667 0.2916667 0.2083333 0.4305556 0.3888889 0.3750000</span></span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           8</span></span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0.3333333</span></span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0.1666667</span></span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 0.2916667</span></span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 0.2083333</span></span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 0.4305556</span></span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 0.3888889</span></span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 0.3750000</span></span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 1.0879630</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>pedigree <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">id=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>,</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>                      <span class="at">parent1 =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>),</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>                      <span class="at">parent2 =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>),</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>                      <span class="at">parent3 =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">0</span>,<span class="dv">7</span>),</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>                      <span class="at">parent4 =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>                      <span class="at">parent5 =</span> <span class="dv">0</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="fu">print</span>(pedigree)</span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="co">#&gt;   id parent1 parent2 parent3 parent4 parent5</span></span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="co">#&gt; 1  1       0       0       0       0       0</span></span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="co">#&gt; 2  2       0       0       0       0       0</span></span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="co">#&gt; 3  3       0       0       0       0       0</span></span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="co">#&gt; 4  4       0       0       0       0       0</span></span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="co">#&gt; 5  5       1       2       3       0       0</span></span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a><span class="co">#&gt; 6  6       2       3       4       0       0</span></span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="co">#&gt; 7  7       3       4       0       0       0</span></span>
+<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a><span class="co">#&gt; 8  8       5       6       7       1       0</span></span>
+<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a><span class="fu">AmatrixPolyCross</span>(pedigree)</span>
+<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
+<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
+<span id="cb16-21"><a href="#cb16-21" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
+<span id="cb16-22"><a href="#cb16-22" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
+<span id="cb16-23"><a href="#cb16-23" tabindex="-1"></a><span class="co">#&gt; Constructing matrix A using ploidy = 2 </span></span>
+<span id="cb16-24"><a href="#cb16-24" tabindex="-1"></a><span class="co">#&gt; Completed! Time = 0  minutes</span></span>
+<span id="cb16-25"><a href="#cb16-25" tabindex="-1"></a><span class="co">#&gt;           1         2         3         4         5         6         7</span></span>
+<span id="cb16-26"><a href="#cb16-26" tabindex="-1"></a><span class="co">#&gt; 1 1.0000000 0.0000000 0.0000000 0.0000000 0.3333333 0.0000000 0.0000000</span></span>
+<span id="cb16-27"><a href="#cb16-27" tabindex="-1"></a><span class="co">#&gt; 2 0.0000000 1.0000000 0.0000000 0.0000000 0.3333333 0.3333333 0.0000000</span></span>
+<span id="cb16-28"><a href="#cb16-28" tabindex="-1"></a><span class="co">#&gt; 3 0.0000000 0.0000000 1.0000000 0.0000000 0.3333333 0.3333333 0.5000000</span></span>
+<span id="cb16-29"><a href="#cb16-29" tabindex="-1"></a><span class="co">#&gt; 4 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.3333333 0.5000000</span></span>
+<span id="cb16-30"><a href="#cb16-30" tabindex="-1"></a><span class="co">#&gt; 5 0.3333333 0.3333333 0.3333333 0.0000000 1.0000000 0.2222222 0.1666667</span></span>
+<span id="cb16-31"><a href="#cb16-31" tabindex="-1"></a><span class="co">#&gt; 6 0.0000000 0.3333333 0.3333333 0.3333333 0.2222222 1.0000000 0.3333333</span></span>
+<span id="cb16-32"><a href="#cb16-32" tabindex="-1"></a><span class="co">#&gt; 7 0.0000000 0.0000000 0.5000000 0.5000000 0.1666667 0.3333333 1.0000000</span></span>
+<span id="cb16-33"><a href="#cb16-33" tabindex="-1"></a><span class="co">#&gt; 8 0.3333333 0.1666667 0.2916667 0.2083333 0.4305556 0.3888889 0.3750000</span></span>
+<span id="cb16-34"><a href="#cb16-34" tabindex="-1"></a><span class="co">#&gt;           8</span></span>
+<span id="cb16-35"><a href="#cb16-35" tabindex="-1"></a><span class="co">#&gt; 1 0.3333333</span></span>
+<span id="cb16-36"><a href="#cb16-36" tabindex="-1"></a><span class="co">#&gt; 2 0.1666667</span></span>
+<span id="cb16-37"><a href="#cb16-37" tabindex="-1"></a><span class="co">#&gt; 3 0.2916667</span></span>
+<span id="cb16-38"><a href="#cb16-38" tabindex="-1"></a><span class="co">#&gt; 4 0.2083333</span></span>
+<span id="cb16-39"><a href="#cb16-39" tabindex="-1"></a><span class="co">#&gt; 5 0.4305556</span></span>
+<span id="cb16-40"><a href="#cb16-40" tabindex="-1"></a><span class="co">#&gt; 6 0.3888889</span></span>
+<span id="cb16-41"><a href="#cb16-41" tabindex="-1"></a><span class="co">#&gt; 7 0.3750000</span></span>
+<span id="cb16-42"><a href="#cb16-42" tabindex="-1"></a><span class="co">#&gt; 8 1.0879630</span></span></code></pre></div>
 <p>If <code>fixedParent=TRUE</code>, the above pedigree will be
 interpreted with the possible parents are filled from left to right
 after the known parent, in the <code>pedigree</code> data frame: id
@@ -849,21 +846,21 @@ two other possible parents (3,4); id 7 has two parents (deterministic
 case here, the parents are 3 and 4); as before; id 8 is offspring of
 parent 5 in a deterministic way and has three other possible parents
 (6,7,1).</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AmatrixPolyCross</span>(pedigree,<span class="at">fixedParent=</span><span class="cn">TRUE</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed! Time = 0  minutes</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           1         2    3     4         5         6         7         8</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1.0000000 0.0000000 0.00 0.000 0.5000000 0.0000000 0.0000000 0.4166667</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0.0000000 1.0000000 0.00 0.000 0.2500000 0.5000000 0.0000000 0.2083333</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 0.0000000 0.0000000 1.00 0.000 0.2500000 0.2500000 0.5000000 0.2500000</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 0.0000000 0.0000000 0.00 1.000 0.0000000 0.2500000 0.5000000 0.1250000</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 0.5000000 0.2500000 0.25 0.000 1.0000000 0.1875000 0.1250000 0.6354167</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 0.0000000 0.5000000 0.25 0.250 0.1875000 1.0000000 0.2500000 0.3020833</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 0.0000000 0.0000000 0.50 0.500 0.1250000 0.2500000 1.0000000 0.2708333</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 0.4166667 0.2083333 0.25 0.125 0.6354167 0.3020833 0.2708333 1.1354167</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">AmatrixPolyCross</span>(pedigree,<span class="at">fixedParent=</span><span class="cn">TRUE</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a><span class="co">#&gt; Your data was chronologically organized with success. </span></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="co">#&gt; Completed! Time = 0  minutes</span></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a><span class="co">#&gt;           1         2    3     4         5         6         7         8</span></span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a><span class="co">#&gt; 1 1.0000000 0.0000000 0.00 0.000 0.5000000 0.0000000 0.0000000 0.4166667</span></span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a><span class="co">#&gt; 2 0.0000000 1.0000000 0.00 0.000 0.2500000 0.5000000 0.0000000 0.2083333</span></span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a><span class="co">#&gt; 3 0.0000000 0.0000000 1.00 0.000 0.2500000 0.2500000 0.5000000 0.2500000</span></span>
+<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a><span class="co">#&gt; 4 0.0000000 0.0000000 0.00 1.000 0.0000000 0.2500000 0.5000000 0.1250000</span></span>
+<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a><span class="co">#&gt; 5 0.5000000 0.2500000 0.25 0.000 1.0000000 0.1875000 0.1250000 0.6354167</span></span>
+<span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a><span class="co">#&gt; 6 0.0000000 0.5000000 0.25 0.250 0.1875000 1.0000000 0.2500000 0.3020833</span></span>
+<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a><span class="co">#&gt; 7 0.0000000 0.0000000 0.50 0.500 0.1250000 0.2500000 1.0000000 0.2708333</span></span>
+<span id="cb17-15"><a href="#cb17-15" tabindex="-1"></a><span class="co">#&gt; 8 0.4166667 0.2083333 0.25 0.125 0.6354167 0.3020833 0.2708333 1.1354167</span></span></code></pre></div>
 </div>
 <div id="amatrix-benchmark" class="section level2">
 <h2>Amatrix() benchmark</h2>
@@ -879,91 +876,93 @@ less than 20,000 rows can built with low-specs user-end machines
 </div>
 <div id="bibliography" class="section level2">
 <h2>Bibliography</h2>
+<p>Amadeu, RR, et al. 2023 AGHmatrix: genetic relationship matrices in
+R. Bioinformatics 39, 7.</p>
 <p>Amadeu, RR, et al. 2016 AGHmatrix: R package to construct
 relationship matrices for autotetraploid and diploid species: a
-blueberry example. The Plant Genome 9, 4. <a href="https://doi.org/10.3835/plantgenome2016.01.0009" class="uri">https://doi.org/10.3835/plantgenome2016.01.0009</a></p>
+blueberry example. The Plant Genome 9, 4.</p>
 <p>Ashraf, BH, et al. 2016. Estimating genomic heritabilities at the
 level of family-pool samples of perennial ryegrass using
-genotyping-by-sequencing. Theoretical and Applied Genetics 129, 45-52.
-<a href="https://doi.org/0.1007/s00122-015-2607-9" class="uri">https://doi.org/0.1007/s00122-015-2607-9</a></p>
+genotyping-by-sequencing. Theoretical and Applied Genetics 129,
+45-52.</p>
 <p>Cockerham, CC. 1954 An extension of the concept of partitioning
 hereditary variance for analysis of covariances among relatives when
-epistasis is present. Genetics 39, 859–882</p>
+epistasis is present. Genetics 39, 859–882.</p>
 <p>de Bem Oliveira, I, et al. 2019 Genomic prediction of
 autotetraploids; influence of relationship matrices, allele dosage, and
 continuous genotyping calls in phenotype prediction. G3: Genes, Genomes,
 Genetics, 9(4), pp.1189-1198.</p>
 <p>Endelman, JB, et al. 2018 Genetic variance partitioning and
 genome-wide prediction with allele dosage information in autotetraploid
-potato. Genetics 209, 77-87. <a href="https://doi.org/10.1534/genetics.118.300685" class="uri">https://doi.org/10.1534/genetics.118.300685</a></p>
+potato. Genetics 209, 77-87.</p>
 <p>Hamilton, MG, et al. 2017 Computation of the inverse additive
 relationship matrix for autopolyploid and multiple-ploidy populations.
-Theoretical and Applied Genetics 131, 851-890. <a href="https://doi.org/10.1007/s00122-017-3041-y" class="uri">https://doi.org/10.1007/s00122-017-3041-y</a></p>
+Theoretical and Applied Genetics 131, 851-890.</p>
 <p>Henderson, C. 1976 A simple method for computing the inverse of a
 numerator relationship matrix used in prediction of breeding values.
-Biometrics 32, 69–83. <a href="https://doi.org/10.2307/2529339" class="uri">https://doi.org/10.2307/2529339</a></p>
+Biometrics 32, 69–83.</p>
 <p>Kerr, RJ, et al., 2012 Use of the numerator relation ship matrix in
 genetic analysis of autopolyploid species. Theoretical and Applied
-Genetics 124, 1271–1282. <a href="https://doi.org/10.1007/s00122-012-1785-y" class="uri">https://doi.org/10.1007/s00122-012-1785-y</a></p>
+Genetics 124, 1271–1282.</p>
 <p>Legarra, A, et al. 2009 A relationship matrix including full pedigree
 and genomic information. Journal of Dairy Science 92, 4656–4663.</p>
 <p>Liu, A, et al. 2020. Weighted single-step genomic best linear
 unbiased prediction integrating variants selected from sequencing data
 by association and bioinformatics analyses. Genet Sel Evol 52, 48.</p>
 <p>Martini, JW, et al. 2018, The effect of the H<span class="math inline">\(^{1}\)</span> scaling factors <span class="math inline">\(\tau\)</span> and <span class="math inline">\(\omega\)</span> on the structure of H in the
-single-step procedure. Genetics Selection Evolution 50(1), 16. <a href="https://doi.org/10.1186/s12711-018-0386-x" class="uri">https://doi.org/10.1186/s12711-018-0386-x</a></p>
+single-step procedure. Genetics Selection Evolution 50(1), 16.</p>
 <p>Mrode, RA. 2014 <em>Linear models for the prediction of animal
 breeding values</em>. Cabi. 3rd ed.</p>
 <p>Munoz, PR, et al., 2014 Unraveling additive from nonadditive effects
-using genomic relationship matrices. Genetics 198, 1759–1768. <a href="https://doi.org/10.1534/genetics.114.171322" class="uri">https://doi.org/10.1534/genetics.114.171322</a></p>
+using genomic relationship matrices. Genetics 198, 1759–1768.</p>
 <p>R Core Team, 2016 <em>R</em>: A Language and Environment for
 Statistical Computing. R Foundation for Statistical Computing, Vienna,
 Austria.</p>
 <p>Resende, MF, et al. 2012 Accuracy of genomic selection methods in a
 standard data set of loblolly pine (<em>Pinus taeda</em> l.). Genetics
-190, 1503–1510. <a href="https://doi.org/10.1534/genetics.111.137026" class="uri">https://doi.org/10.1534/genetics.111.137026</a></p>
+190, 1503–1510.</p>
 <p>Slater, AT, et al. 2014 Improving the analysis of low heritability
 complex traits for enhanced genetic gain in potato. Theoretical and
-applied genetics 127, 809–820. <a href="https://doi.org/10.1007/s00122-013-2258-7" class="uri">https://doi.org/10.1007/s00122-013-2258-7</a></p>
+applied genetics 127, 809–820.</p>
 <p>Slater, AT, et al. 2016 Improving genetic gain with genomic selection
-in autotetraploid potato. The Plant Genome 9. <a href="https://doi.org/10.3835/plantgenome2016.02.0021" class="uri">https://doi.org/10.3835/plantgenome2016.02.0021</a></p>
+in autotetraploid potato. The Plant Genome 9.</p>
 <p>Su, G, et al. 2012 Estimating additive and non-additive genetic
 variances and predicting genetic merits using genome-wide dense single
 nucleotide polymorphism markers. PloS one 7, e45293. <a href="https://doi.org/10.1371/journal.pone.0045293" class="uri">https://doi.org/10.1371/journal.pone.0045293</a></p>
 <p>VanRaden, P. 2008 Efficient methods to compute genomic predictions.
-Journal of dairy science 91, 4414–4423. <a href="https://doi.org/10.3168/jds.2007-0980" class="uri">https://doi.org/10.3168/jds.2007-0980</a></p>
+Journal of dairy science 91, 4414–4423.</p>
 <p>Vitezica, ZG, et al. 2013 On the additive and dominant variance and
 covariance of individuals within the genomic selection scope. Genetics
-195, 1223–1230. <a href="https://doi.org/10.1534/genetics.113.155176" class="uri">https://doi.org/10.1534/genetics.113.155176</a></p>
+195, 1223–1230.</p>
 <p>Yang, J, et al. 2010 Common snps explain a large proportion of the
-heritability for human height. Nature genetics 42, 565–569. <a href="https://doi.org/10.1038/ng.608" class="uri">https://doi.org/10.1038/ng.608</a></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R version 4.2.3 (2023-03-15 ucrt)</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Platform: x86_64-w64-mingw32/x64 (64-bit)</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Running under: Windows 10 x64 (build 19044)</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matrix products: default</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; locale:</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] LC_COLLATE=C                          </span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] LC_CTYPE=English_United States.utf8   </span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] LC_MONETARY=English_United States.utf8</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] LC_NUMERIC=C                          </span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] LC_TIME=English_United States.utf8    </span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attached base packages:</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; other attached packages:</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] AGHmatrix_2.1.0 rmarkdown_2.21  knitr_1.42     </span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] codetools_0.2-19 lattice_0.20-45  zoo_1.8-11       digest_0.6.31   </span></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] grid_4.2.3       R6_2.5.1         jsonlite_1.8.4   evaluate_0.20   </span></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] highr_0.10       cachem_1.0.7     rlang_1.1.0      cli_3.6.1       </span></span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] rstudioapi_0.14  jquerylib_0.1.4  Matrix_1.5-3     bslib_0.4.2     </span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [17] tools_4.2.3      xfun_0.38        yaml_2.3.7       fastmap_1.1.1   </span></span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [21] compiler_4.2.3   htmltools_0.5.5  sass_0.4.5</span></span></code></pre></div>
+heritability for human height. Nature genetics 42, 565–569.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="co">#&gt; R version 4.2.3 (2023-03-15 ucrt)</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="co">#&gt; Platform: x86_64-w64-mingw32/x64 (64-bit)</span></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="co">#&gt; Running under: Windows 10 x64 (build 19044)</span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a><span class="co">#&gt; Matrix products: default</span></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a><span class="co">#&gt; locale:</span></span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a><span class="co">#&gt; [1] LC_COLLATE=C                          </span></span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a><span class="co">#&gt; [2] LC_CTYPE=English_United States.utf8   </span></span>
+<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a><span class="co">#&gt; [3] LC_MONETARY=English_United States.utf8</span></span>
+<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a><span class="co">#&gt; [4] LC_NUMERIC=C                          </span></span>
+<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a><span class="co">#&gt; [5] LC_TIME=English_United States.utf8    </span></span>
+<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a><span class="co">#&gt; attached base packages:</span></span>
+<span id="cb18-16"><a href="#cb18-16" tabindex="-1"></a><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span id="cb18-17"><a href="#cb18-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-18"><a href="#cb18-18" tabindex="-1"></a><span class="co">#&gt; other attached packages:</span></span>
+<span id="cb18-19"><a href="#cb18-19" tabindex="-1"></a><span class="co">#&gt; [1] AGHmatrix_2.1.3 rmarkdown_2.23  knitr_1.43     </span></span>
+<span id="cb18-20"><a href="#cb18-20" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-21"><a href="#cb18-21" tabindex="-1"></a><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
+<span id="cb18-22"><a href="#cb18-22" tabindex="-1"></a><span class="co">#&gt;  [1] codetools_0.2-19  lattice_0.20-45   zoo_1.8-11        digest_0.6.31    </span></span>
+<span id="cb18-23"><a href="#cb18-23" tabindex="-1"></a><span class="co">#&gt;  [5] grid_4.2.3        R6_2.5.1          jsonlite_1.8.7    evaluate_0.21    </span></span>
+<span id="cb18-24"><a href="#cb18-24" tabindex="-1"></a><span class="co">#&gt;  [9] highr_0.10        cachem_1.0.7      rlang_1.1.0       cli_3.6.1        </span></span>
+<span id="cb18-25"><a href="#cb18-25" tabindex="-1"></a><span class="co">#&gt; [13] rstudioapi_0.15.0 jquerylib_0.1.4   Matrix_1.6-0      bslib_0.5.0      </span></span>
+<span id="cb18-26"><a href="#cb18-26" tabindex="-1"></a><span class="co">#&gt; [17] tools_4.2.3       xfun_0.39         yaml_2.3.7        fastmap_1.1.1    </span></span>
+<span id="cb18-27"><a href="#cb18-27" tabindex="-1"></a><span class="co">#&gt; [21] compiler_4.2.3    htmltools_0.5.5   sass_0.4.7</span></span></code></pre></div>
 </div>
 
 
