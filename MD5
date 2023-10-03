@@ -1,6 +1,6 @@
-5cc8d76fea57baaba5912702548c7e0a *DESCRIPTION
+2707685094d03eabd62f266b415555ad *DESCRIPTION
 4806ffb6dc97d74ca48759bec3ba944a *NAMESPACE
-b3f9bf71094dff26db077098892b8373 *R/Amatrix.R
+0e6c9db62b2be1a63ab567f203557cf5 *R/Amatrix.R
 bd83fa953249b63666f7f77d19e09761 *R/AmatrixPolyCross.R
 bbd3f261caf297781a685f35e9c2432c *R/Gmatrix.R
 e15ad0231d5cc56026763801660bd917 *R/Hmatrix.R
@@ -14,7 +14,7 @@ bd242caeb14579c6ae29ae0d2ba25ee2 *R/Mcheck.R
 73bb9f0cbca06b13b0a332a4422a6af8 *R/ped.sol-data.R
 922d6eb3f51e90564e0394be0d4cf0f5 *R/snp.pine-data.R
 dcf0948e4a4743684822ba752439d310 *R/snp.sol-data.R
-220aeb96d1557d76c76fcd8fe892d36a *README.md
+fb25b85cd187a4c6fef18f940b8b967f *README.md
 2b9f10b2aac4c779334ba6fa1079bdaf *build/vignette.rds
 7fee62c98512703306b75537f31a3953 *data/datalist
 f8e288873f39c5ad269fec1a9fc2ac41 *data/ped.mrode.rdata
@@ -24,7 +24,7 @@ f550fb1b706cc38b9e4a090667a53ed9 *data/ped.sol.rdata
 c77a5c48ffa4cb22a3d621c31eae7047 *inst/CITATION
 b896004df1e4f22edce9271a54530b51 *inst/doc/Tutorial_AGHmatrix.R
 88176416326d5dc2e26c8a4b7ebdfbda *inst/doc/Tutorial_AGHmatrix.Rmd
-a03f67586268eab5fba4eedf9a6bd14d *inst/doc/Tutorial_AGHmatrix.html
+63cefdc40b0a8f6416103b57fec06bab *inst/doc/Tutorial_AGHmatrix.html
 55c9ae58c9212308ec5fd54b9baf344d *inst/misc/ISSUE
 2e44926c83aa3864ee2072560a3cbe9d *inst/misc/Tutorial_AGHmatrix.R
 b6b960c01fa71a37391912217dc2472d *inst/misc/Tutorial_AGHmatrix.Rmd
